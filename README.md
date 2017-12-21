@@ -20,6 +20,10 @@ developed for Docker Machine.
 
 # Build from Source
 ```
+$ yum install -y libvirt-devel curl git gcc  //CentOS,Fedora
+
+$ apt-get install -y libvirt-dev curl git gcc //Ubuntu
+
 $ make build
 ```
 
