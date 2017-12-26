@@ -33,7 +33,7 @@ import (
 
 const (
 	qemusystem                = "qemu:///system"
-	defaultPrivateNetworkName = "minikube-net"
+	defaultPrivateNetworkName = "docker-machines"
 	defaultNetworkName        = "default"
 	defaultSSHUser            = "docker"
 	isoFilename               = "boot2docker.iso"
@@ -118,6 +118,11 @@ func (d *Driver) GetCreateFlags() []mcnflag.Flag {
 			Value: "default",
 		},
 		mcnflag.StringFlag{
+			Name:  "kvm-disk-path",
+			Usage: "Disk Path: default, none",
+			Value: "",
+		},
+		mcnflag.StringFlag{
 			Name:  "kvm-io-mode",
 			Usage: "Disk IO mode: threads, native",
 			Value: "threads",
@@ -141,7 +146,7 @@ func (d *Driver) SetConfigFromFlags(flags drivers.DriverOptions) error {
 	d.ISO = d.ResolveStorePath(isoFilename)
 	d.SSHUser = flags.String("kvm-ssh-user")
 	d.SSHPort = 22
-	d.DiskPath = d.ResolveStorePath(fmt.Sprintf("%s.img", d.MachineName))
+	d.DiskPath = flags.String("kvm-disk-path")
 	return nil
 }
 

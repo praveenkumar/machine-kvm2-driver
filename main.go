@@ -16,22 +16,10 @@ limitations under the License.
 package main
 
 import (
-	"flag"
-	"fmt"
-
 	"github.com/docker/machine/libmachine/drivers/plugin"
 	"github.com/praveenkumar/machine-kvm2-driver/pkg/kvm"
 )
 
-// Will be set using "-X" linker option during build
-var pluginVersion = "undefined"
-
 func main() {
-	versionPtr := flag.Bool("version", true, "print version number of plugin")
-	flag.Parse()
-	if *versionPtr {
-		fmt.Printf("kvm2 Plugin: %s\n", pluginVersion)
-	} else {
-		plugin.RegisterDriver(kvm.NewDriver("", ""))
-	}
+	plugin.RegisterDriver(kvm.NewDriver("", ""))
 }
